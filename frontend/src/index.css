@@ -1,19 +1,74 @@
-body{
-    font-family: 'Poppins', sans-serif;
-    background-color: #f3f3ff;
+body {
+  font-family: "Poppins", sans-serif;
+  /* background-color: #f3f3ff; */
+  background-color: #2a3038;
 }
 
-.btn-primary {
-    background-color: #5E60CE;
-    border-color: #5E60CE;
-  }
-  .btn-primary:hover {
-    background-color: #8c8cff;
-    border-color: #8c8cff;
-  }
+.card {
+  background-color: #f2f2f2;
+  border: 1px solid #555555;
+}
+.btn-outline-primary {
+  background-color: #fff;
+  color: #4285f4;
+  border: 1px solid #4285f4;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.btn-primary:hover {
+  background-color: #1a237e;
+  border-color: #1a237e;
+}
+.line-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
 
-  .card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
+.line-divider hr {
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.line-divider span {
+  margin: 0 10px;
+  color: #999;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.google-btn {
+  background-color: #fff;
+  color: #4285f4;
+  border: 1px solid #4285f4;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.google-btn:hover {
+  background-color: #4285f4;
+  color: #fff;
+}
+
+.facebook-btn {
+  background-color: #3b5998;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.facebook-btn:hover {
+  background-color: #fff;
+  color: #3b5998;
+  border: 1px solid #3b5998;
+}

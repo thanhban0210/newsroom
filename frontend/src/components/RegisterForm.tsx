@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertType } from "../App";
+import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const schema = z.object({
   firstName: z.string().nonempty("Please enter your first name"),
@@ -22,9 +24,10 @@ export interface RegistrationFormData {
 
 interface Props {
   onSubmit: (data: RegistrationFormData) => void;
+  alert: { type: AlertType; message: string };
 }
 
-const Form = ({ onSubmit }: Props) => {
+const Form = ({ onSubmit, alert }: Props) => {
   const {
     register,
     handleSubmit,
@@ -35,91 +38,125 @@ const Form = ({ onSubmit }: Props) => {
   return (
     <div className="container" style={{ marginTop: "6rem" }}>
       <div className="row justify-content-center">
-        <div className="col-lg-8 col-md-10 col-sm-12">
+        <div className="col-lg-6 col-md-10 col-sm-12">
           <div className="card p-4">
             <div className="card-body">
-              <h2 className="card-title text-center mb-3">
-                Create Your Account
-              </h2>
+              <div className="text-center">
+                <h2 className="card-title ">Create Your Account</h2>
+                <p className="text-muted">
+                  Already have an account? <a href="sign-in.html">Sign in</a>
+                </p>
+              </div>
+              <div className="line-divider">
+                <hr />
+              </div>
+
               <form onSubmit={handleSubmit((data) => onSubmit(data))}>
                 <div className="row">
-                  <div className="col-sm-6">
-                    <label htmlFor="firstName" className="form-label">
-                      First Name
-                    </label>
+                  <div className="col-sm-6 mb-3 form-floating">
                     <input
                       {...register("firstName")}
                       type="text"
                       className="form-control"
                       id="firstName"
+                      placeholder="First name"
                     />
+                    <label htmlFor="firstName" className="mx-3">
+                      First Name
+                    </label>
+
                     {errors.firstName && (
                       <p className="text-danger">{errors.firstName.message}</p>
                     )}
                   </div>
-                  <div className="col-sm-6">
-                    <label htmlFor="lastName" className="form-label">
-                      Last Name
-                    </label>
+                  <div className="col-sm-6 mb-3 form-floating">
                     <input
                       {...register("lastName")}
                       type="text"
                       className="form-control"
                       id="lastName"
+                      placeholder="Last name"
                     />
+                    <label htmlFor="lastName" className="mx-3">
+                      Last Name
+                    </label>
                     {errors.lastName && (
                       <p className="text-danger">{errors.lastName.message}</p>
                     )}
                   </div>
                 </div>
 
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">
-                    Username
-                  </label>
+                <div className="mb-3 form-floating">
                   <input
                     {...register("username")}
                     type="text"
                     className="form-control"
                     id="username"
+                    placeholder="Username"
                   />
+                  <label htmlFor="username">Username</label>
                   {errors.username && (
                     <p className="text-danger">{errors.username.message}</p>
                   )}
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email address
-                  </label>
+
+                <div className="mb-3 form-floating">
                   <input
                     {...register("email")}
                     type="email"
                     className="form-control"
                     id="email"
+                    placeholder="Email address"
                   />
+                  <label htmlFor="email">Email address</label>
                   {errors.email && (
                     <p className="text-danger">{errors.email.message}</p>
                   )}
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
+                <div className="mb-5 form-floating">
                   <input
                     {...register("password")}
                     type="password"
                     className="form-control"
                     id="password"
+                    placeholder="Password"
                   />
+                  <label htmlFor="password">Password</label>
                   {errors.password && (
                     <p className="text-danger">{errors.password.message}</p>
                   )}
                 </div>
+                <div className="row">
+                  <button
+                    type="submit"
+                    className="btn btn-lg btn-outline-primary mb-3"
+                  >
+                    Create
+                  </button>
+                </div>
 
-                <button type="submit" className="btn btn-primary mb-3">
-                  Submit
-                </button>
+                {alert.type === AlertType.ERROR && (
+                  <p className="text-danger">{alert.message}</p>
+                )}
+                {alert.type === AlertType.SUCCESS && (
+                  <p className="text-success">{alert.message}</p>
+                )}
               </form>
+              <div className="line-divider">
+                <hr />
+                <span>or</span>
+                <hr />
+              </div>
+              <div className="row">
+                <button className="google-btn mb-4">
+                  <FaGoogle />
+                  <span className="mx-3">Sign up with Google</span>
+                </button>
+                <button className="facebook-btn">
+                  <FaFacebook />
+                  <span className="mx-3">Sign up with Facebook</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

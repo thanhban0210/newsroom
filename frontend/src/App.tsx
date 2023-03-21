@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import api from "./services/api";
 import { useState } from "react";
 
-enum AlertType {
+export enum AlertType {
   ERROR,
   SUCCESS,
 }
@@ -39,13 +39,7 @@ function App() {
 
   return (
     <div className="container">
-      <RegisterForm onSubmit={register} />
-      {alert.type === AlertType.ERROR && (
-        <p className="text-danger">{alert.message}</p>
-      )}
-      {alert.type === AlertType.SUCCESS && (
-        <p className="text-success">{alert.message}</p>
-      )}
+      <RegisterForm onSubmit={register} alert={alert} />
     </div>
   );
 }
