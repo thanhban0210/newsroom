@@ -33,85 +33,93 @@ const Form = ({ onSubmit }: Props) => {
     resolver: zodResolver(schema),
   });
   return (
-    <div className="d-flex flex-column container align-items-center">
-      <h1 className="w-100">Registration</h1>
-      <form className="w-100" onSubmit={handleSubmit((data) => onSubmit(data))}>
-        <div className="mb-3">
-          <label htmlFor="firstName" className="form-label">
-            First Name
-          </label>
-          <input
-            {...register("firstName")}
-            type="text"
-            className="form-control"
-            id="firstName"
-          />
-          {errors.firstName && (
-            <p className="text-danger">{errors.firstName.message}</p>
-          )}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="lastName" className="form-label">
-            Last Name
-          </label>
-          <input
-            {...register("lastName")}
-            type="text"
-            className="form-control"
-            id="lastName"
-          />
-          {errors.lastName && (
-            <p className="text-danger">{errors.lastName.message}</p>
-          )}
-        </div>
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-6 col-md-8 col-sm-10">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title">Registration</h2>
+              <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+                <div className="mb-3">
+                  <label htmlFor="firstName" className="form-label">
+                    First Name
+                  </label>
+                  <input
+                    {...register("firstName")}
+                    type="text"
+                    className="form-control"
+                    id="firstName"
+                  />
+                  {errors.firstName && (
+                    <p className="text-danger">{errors.firstName.message}</p>
+                  )}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="lastName" className="form-label">
+                    Last Name
+                  </label>
+                  <input
+                    {...register("lastName")}
+                    type="text"
+                    className="form-control"
+                    id="lastName"
+                  />
+                  {errors.lastName && (
+                    <p className="text-danger">{errors.lastName.message}</p>
+                  )}
+                </div>
 
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-            {...register("username")}
-            type="text"
-            className="form-control"
-            id="username"
-          />
-          {errors.username && (
-            <p className="text-danger">{errors.username.message}</p>
-          )}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            {...register("email")}
-            type="email"
-            className="form-control"
-            id="email"
-          />
-          {errors.email && (
-            <p className="text-danger">{errors.email.message}</p>
-          )}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            {...register("password")}
-            type="password"
-            className="form-control"
-            id="password"
-          />
-          {errors.password && (
-            <p className="text-danger">{errors.password.message}</p>
-          )}
-        </div>
+                <div className="mb-3">
+                  <label htmlFor="username" className="form-label">
+                    Username
+                  </label>
+                  <input
+                    {...register("username")}
+                    type="text"
+                    className="form-control"
+                    id="username"
+                  />
+                  {errors.username && (
+                    <p className="text-danger">{errors.username.message}</p>
+                  )}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Email address
+                  </label>
+                  <input
+                    {...register("email")}
+                    type="email"
+                    className="form-control"
+                    id="email"
+                  />
+                  {errors.email && (
+                    <p className="text-danger">{errors.email.message}</p>
+                  )}
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
+                  <input
+                    {...register("password")}
+                    type="password"
+                    className="form-control"
+                    id="password"
+                  />
+                  {errors.password && (
+                    <p className="text-danger">{errors.password.message}</p>
+                  )}
+                </div>
 
-        <button type="submit" className="btn btn-primary mb-3">
-          Submit
-        </button>
-      </form>
+                <button type="submit" className="btn btn-primary mb-3">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

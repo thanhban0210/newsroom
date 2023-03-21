@@ -4,24 +4,28 @@ const router = express.Router();
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
-router.post("/register", async (req, res) => {
+router.post("/", async (req, res) => {
+  let checkUser = await User.findOne({ username: req.body.username });
+  let checkEmail = await User.findOne({ email: req.body.email });
+  if (checkUser || checkEmail)
+    return res.status(400).send("Username or email already in use");
+
   const user = new User(
     _.pick(req.body, ["firstName", "lastName", "email", "username", "password"])
   );
+
   const salt = await bcrypt.genSalt(10);
+
   user.password = await bcrypt.hash(user.password, salt);
   try {
     await user.save();
-    res.status(201).json({ message: "Registration successful" });
+    const token = user.generateAuthToken();
+    res
+      .status(201)
+      .header("Authorization", `Bearer ${token}`)
+      .send("Registration successful");
   } catch (error) {
-    if (error.code === 11000 && error.keyPattern.username === 1) {
-      res.status(400).json({ message: "Username already exists" });
-    }
-    if (error.code === 11000 && error.keyPattern.email === 1) {
-      res.status(400).json({ message: "Email already exists" });
-    } else {
-      console.log(error);
-    }
+    console.log(error);
   }
 });
 
