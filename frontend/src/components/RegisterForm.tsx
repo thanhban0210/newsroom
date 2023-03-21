@@ -33,40 +33,44 @@ const Form = ({ onSubmit }: Props) => {
     resolver: zodResolver(schema),
   });
   return (
-    <div className="container mt-5">
+    <div className="container" style={{ marginTop: "6rem" }}>
       <div className="row justify-content-center">
-        <div className="col-lg-6 col-md-8 col-sm-10">
-          <div className="card">
+        <div className="col-lg-8 col-md-10 col-sm-12">
+          <div className="card p-4">
             <div className="card-body">
-              <h2 className="card-title">Registration</h2>
+              <h2 className="card-title text-center mb-3">
+                Create Your Account
+              </h2>
               <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-                <div className="mb-3">
-                  <label htmlFor="firstName" className="form-label">
-                    First Name
-                  </label>
-                  <input
-                    {...register("firstName")}
-                    type="text"
-                    className="form-control"
-                    id="firstName"
-                  />
-                  {errors.firstName && (
-                    <p className="text-danger">{errors.firstName.message}</p>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="lastName" className="form-label">
-                    Last Name
-                  </label>
-                  <input
-                    {...register("lastName")}
-                    type="text"
-                    className="form-control"
-                    id="lastName"
-                  />
-                  {errors.lastName && (
-                    <p className="text-danger">{errors.lastName.message}</p>
-                  )}
+                <div className="row">
+                  <div className="col-sm-6">
+                    <label htmlFor="firstName" className="form-label">
+                      First Name
+                    </label>
+                    <input
+                      {...register("firstName")}
+                      type="text"
+                      className="form-control"
+                      id="firstName"
+                    />
+                    {errors.firstName && (
+                      <p className="text-danger">{errors.firstName.message}</p>
+                    )}
+                  </div>
+                  <div className="col-sm-6">
+                    <label htmlFor="lastName" className="form-label">
+                      Last Name
+                    </label>
+                    <input
+                      {...register("lastName")}
+                      type="text"
+                      className="form-control"
+                      id="lastName"
+                    />
+                    {errors.lastName && (
+                      <p className="text-danger">{errors.lastName.message}</p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="mb-3">
