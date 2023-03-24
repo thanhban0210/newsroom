@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertType } from "../App";
+import { AlertType } from "../views/RegisterPage";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const schema = z.object({
   firstName: z.string().nonempty("Please enter your first name"),
@@ -15,11 +16,11 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export interface RegistrationFormData {
-  firstName: String;
-  lastName: String;
-  email: String;
-  username: String;
-  password: String;
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  password: string;
 }
 
 interface Props {
@@ -27,7 +28,7 @@ interface Props {
   alert: { type: AlertType; message: string };
 }
 
-const Form = ({ onSubmit, alert }: Props) => {
+const RegisterForm = ({ onSubmit, alert }: Props) => {
   const {
     register,
     handleSubmit,
@@ -44,7 +45,7 @@ const Form = ({ onSubmit, alert }: Props) => {
               <div className="text-center">
                 <h2 className="card-title ">Create Your Account</h2>
                 <p className="text-muted">
-                  Already have an account? <a href="sign-in.html">Sign in</a>
+                  Already have an account? <Link to="/login">Sign in</Link>
                 </p>
               </div>
               <div className="line-divider">
@@ -165,4 +166,4 @@ const Form = ({ onSubmit, alert }: Props) => {
   );
 };
 
-export default Form;
+export default RegisterForm;

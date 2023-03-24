@@ -5,10 +5,10 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 
-router.put("/:id", auth, async (req, res) => {
+router.put("/", auth, async (req, res) => {
   try {
-    const { id } = req.params;
-    const { firstName, lastName, email } = req.body;
+    const id = req.user._id;
+    const { firstName, lastName, email, preferences } = req.body;
 
     // Check if user exists
     const user = await User.findById(id);
@@ -20,6 +20,8 @@ router.put("/:id", auth, async (req, res) => {
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
+    user.preferences.darkMode = preferences.darkMode;
+    user.preferences.fontSize = preferences.fontSize;
 
     // Save updated user to database
     await user.save();

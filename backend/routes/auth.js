@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
     return res.status(400).send("Invalid username or password.");
 
   const token = user.generateAuthToken();
-  res.header("Authorization", `Bearer ${token}`).send("Logged in successfully");
+  res.send({ message: "Logged in successfully", token });
 });
 
 module.exports = router;

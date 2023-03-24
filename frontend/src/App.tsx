@@ -1,46 +1,26 @@
-import RegisterForm from "./components/RegisterForm";
-import { RegistrationFormData } from "./components/RegisterForm";
-import { AxiosError } from "axios";
-import api from "./services/api";
+import RegisterPage from "./views/RegisterPage";
+import LoginPage from "./views/LoginPage";
+import ProfilePage from "./views/ProfilePage";
+import { Routes, Route, Link } from "react-router-dom";
+import { AuthContext } from "./services/authContext";
 import { useState } from "react";
-
-export enum AlertType {
-  ERROR,
-  SUCCESS,
-}
+import { useNavigate } from "react-router-dom";
+import Nav from "./components/Nav";
+import HomePage from "./views/HomePage";
 
 function App() {
-  const [alert, setAlert] = useState<{ type: AlertType; message: string }>({
-    type: AlertType.ERROR,
-    message: "",
-  });
-  const register = async (data: RegistrationFormData) => {
-    try {
-      const response = await api.create("/register", data);
-      setAlert({ type: AlertType.SUCCESS, message: response.data });
-
-      // Extract token from response headers
-      const token = response.headers["authorization"];
-
-      // Store token in local storage
-      localStorage.setItem("token", token);
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        console.log(err);
-        setAlert({
-          type: AlertType.ERROR,
-          message: err?.response?.data,
-        });
-      } else {
-        console.log(err);
-      }
-    }
-  };
+  const [signedIn, setSignedIn] = useState(false);
 
   return (
-    <div className="container">
-      <RegisterForm onSubmit={register} alert={alert} />
-    </div>
+    <AuthContext.Provider value={{ signedIn, setSignedIn }}>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
+    </AuthContext.Provider>
   );
 }
 
