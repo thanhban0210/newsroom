@@ -75,4 +75,27 @@ body {
 }
 .card-news {
   border: none;
+  background-color: #f2f2f2;
+  border-radius: 3%;
+}
+
+.card-news-underlined:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.category:hover {
+  cursor: pointer;
+}
+
+.card-body {
+  font-size: 14px;
+}
+
+.top-stories {
+  color: #8bb8f8;
+}
+
+.local-news {
+  color: #75b8b1;
 }
