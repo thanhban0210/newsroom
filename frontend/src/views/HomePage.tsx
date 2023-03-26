@@ -19,6 +19,7 @@ export interface News {
 const HomePage = () => {
   const [topStories, setTopStories] = useState<News[]>([]);
   const [localNews, setLocalNews] = useState<News[]>([]);
+  const [favoritesList, setFavoritesList] = useState<News[]>([]);
 
   useEffect(() => {
     const fetchTopStories = async () => {
@@ -37,15 +38,38 @@ const HomePage = () => {
         console.error(error);
       }
     };
+    const fetchFavorites = async () => {
+      try {
+        const response = await api.getWithAuth("/favorite");
+        setFavoritesList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchTopStories();
     fetchLocalNews();
+    fetchFavorites();
   }, []);
+
+  const handleFavortire = async (news: News) => {
+    try {
+      const response = await api.addFavorite("/favorite", news);
+      setFavoritesList([...favoritesList, news]);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="container" style={{ marginTop: "100px" }}>
       <div className="row">
         <div className="col-md-8 mb-5">
-          <TopStories newsList={topStories} />
+          <TopStories
+            newsList={topStories}
+            handleFavorite={handleFavortire}
+            favoritesList={favoritesList}
+          />
         </div>
         <div className="col-md-4 mb-5">
           <LocalNews newsList={localNews} />

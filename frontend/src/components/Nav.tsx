@@ -19,6 +19,11 @@ const Nav = () => {
           {signedIn ? (
             <>
               <div className="mx-3">
+                <Link className="nav-link" to="/favorite">
+                  Favorite
+                </Link>
+              </div>
+              <div className="mx-3">
                 <Link className="nav-link" to="/profile">
                   Profile
                 </Link>

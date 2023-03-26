@@ -22,7 +22,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await api.getProfile("/user/me");
+        const response = await api.getWithAuth("/user/me");
         setUser(response.data);
       } catch (err) {
         console.log(err);

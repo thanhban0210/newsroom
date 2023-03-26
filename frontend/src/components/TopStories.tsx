@@ -1,12 +1,28 @@
+import { useContext } from "react";
 import { AiOutlineRight } from "react-icons/ai";
+import { AuthContext } from "../services/authContext";
 import { News } from "../views/HomePage";
+import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 
 interface Props {
   newsList: News[];
+  handleFavorite: (news: News) => void;
+  favoritesList: News[];
 }
 
-const TopStories = ({ newsList }: Props) => {
+const TopStories = ({ newsList, handleFavorite, favoritesList }: Props) => {
+  const { signedIn, setSignedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleAddToFavorites = (news: News) => {
+    if (signedIn) {
+      // alert("Added to favorites!");
+      handleFavorite(news);
+    } else {
+      alert("Please sign in  first!");
+      navigate("/login");
+    }
+  };
   return (
     <div>
       <div className="card text-bg-dark card-news p-3 ">
@@ -22,11 +38,7 @@ const TopStories = ({ newsList }: Props) => {
             >
               <div className="row g-0">
                 <div className="col-md-4">
-                  <img
-                    src={news.urlToImage}
-                    className="img-fluid rounded"
-                    alt="..."
-                  />
+                  <img src={news.urlToImage} className="img-fluid" alt="..." />
                 </div>
                 <div className="col-md-8">
                   <div className="card-body position-relative p-3">
@@ -56,9 +68,19 @@ const TopStories = ({ newsList }: Props) => {
                         aria-labelledby={`dropdownMenuLink${index}`}
                       >
                         <li>
-                          <a className="dropdown-item" href="#">
-                            Add to favorites
-                          </a>
+                          <button
+                            className="dropdown-item"
+                            onClick={() => handleAddToFavorites(news)}
+                            disabled={favoritesList.some(
+                              (favorite) => favorite.title === news.title
+                            )}
+                          >
+                            {favoritesList.some(
+                              (favorite) => favorite.title === news.title
+                            )
+                              ? "Added to favorites"
+                              : "Add to favorites"}
+                          </button>
                         </li>
                         <li>
                           <a className="dropdown-item" href="#">
