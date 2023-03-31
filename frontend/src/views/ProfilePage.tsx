@@ -52,7 +52,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginTop: "6rem" }}>
       {user ? (
         <>
           <h1 className="my-5">Welcome back, {user.username}</h1>

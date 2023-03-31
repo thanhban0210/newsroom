@@ -1,14 +1,16 @@
 import RegisterPage from "./views/RegisterPage";
 import LoginPage from "./views/LoginPage";
-import ProfilePage from "./views/ProfilePage";
+import ProfilePage, { UserData } from "./views/ProfilePage";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import { AuthContext } from "./services/authContext";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Nav from "./components/Nav";
 import HomePage from "./views/HomePage";
-import { News } from "./views/HomePage";
 import FavoritePage from "./views/FavoritePage";
+import SavedPage from "./views/SavedPage";
+import api from "./services/api";
+import SearchPage from "./views/SearchPage";
+import ScrollToTop from "./services/scroll";
 
 function App() {
   const [signedIn, setSignedIn] = useState(false);
@@ -19,15 +21,33 @@ function App() {
       setSignedIn(true);
     }
   }, []);
+  const [user, setUser] = useState<UserData>();
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.getWithAuth("/user/me");
+        setUser(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (signedIn) {
+      fetchProfile();
+    }
+  }, [signedIn]);
+
   return (
     <AuthContext.Provider value={{ signedIn, setSignedIn }}>
-      <Nav />
+      <Nav user={user} />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/favorite" element={<FavoritePage />} />
+        <Route path="/saved" element={<SavedPage />} />
+        <Route path="/search/:query" element={<SearchPage />} />
       </Routes>
     </AuthContext.Provider>
   );

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import api from "../services/api";
 import { News } from "./HomePage";
 
-const FavoritePage = () => {
-  const [favoritesList, setFavoritesList] = useState<News[]>([]);
+const SavedPage = () => {
+  const [savedList, setSavedList] = useState<News[]>([]);
 
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await api.getWithAuth("/favorite");
-        setFavoritesList(response.data);
+        const response = await api.getWithAuth("/saved");
+        setSavedList(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -20,8 +20,8 @@ const FavoritePage = () => {
 
   const handleClick = async (title: string) => {
     try {
-      await api.deleteWithAuth(`/favorite/${title}`);
-      setFavoritesList(favoritesList.filter((news) => news.title !== title));
+      await api.deleteWithAuth(`/saved/${title}`);
+      setSavedList(savedList.filter((news) => news.title !== title));
     } catch (error) {
       console.error(error);
     }
@@ -29,17 +29,17 @@ const FavoritePage = () => {
 
   return (
     <div className="container" style={{ marginTop: "6rem" }}>
-      <div className="h2 favorites category mb-5 ">Your favorite articles</div>
+      <div className="h2 saved category mb-5 ">Read later</div>
       <div className="d-flex justify-content-center">
-        {favoritesList.length === 0 ? (
+        {savedList.length === 0 ? (
           <p>
-            Looks like your favorite list is feeling a little empty. Let's fill
-            it up with some amazing articles!{" "}
+            No articles in your list? No problem. Let's find something great to
+            add!
           </p>
         ) : (
           <div className="card text-bg-dark card-news p-3">
             <ul className="list-group list-group-flush">
-              {favoritesList.map((news, index) => (
+              {savedList.map((news, index) => (
                 <div
                   key={news.title}
                   className="card text-bg-dark card-news card-news-underlined "
@@ -73,7 +73,7 @@ const FavoritePage = () => {
                   >
                     Remove
                   </button>
-                  {index !== favoritesList.length - 1 && <hr />}
+                  {index !== savedList.length - 1 && <hr />}
                 </div>
               ))}
             </ul>
@@ -84,4 +84,4 @@ const FavoritePage = () => {
   );
 };
 
-export default FavoritePage;
+export default SavedPage;

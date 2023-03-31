@@ -6,6 +6,7 @@ const modify = require("./routes/modify");
 const getUser = require("./routes/getUser");
 const getNews = require("./routes/getNews");
 const favoriteNews = require("./routes/favoriteNews");
+const savedNews = require("./routes/savedNews");
 const db = require("./database");
 require("dotenv").config();
 
@@ -18,6 +19,7 @@ app.use("/user/modify", modify);
 app.use("/user/me", getUser);
 app.use("/news", getNews);
 app.use("/favorite", favoriteNews);
+app.use("/saved", savedNews);
 
 db.connect();
 

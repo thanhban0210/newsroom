@@ -19,13 +19,13 @@ const api = {
         "x-auth-token": `${localStorage.getItem("token")}`,
       },
     }),
-  addFavorite: <T>(endpoint: String, data: T) =>
+  addWithAuth: <T>(endpoint: String, data: T) =>
     axios.post(baseUrl + endpoint, data, {
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,
       },
     }),
-  deleteFavorite: (endpoint: String) =>
+  deleteWithAuth: (endpoint: String) =>
     axios.delete(baseUrl + endpoint, {
       headers: {
         "x-auth-token": `${localStorage.getItem("token")}`,

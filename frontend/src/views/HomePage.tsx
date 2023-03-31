@@ -20,6 +20,7 @@ const HomePage = () => {
   const [topStories, setTopStories] = useState<News[]>([]);
   const [localNews, setLocalNews] = useState<News[]>([]);
   const [favoritesList, setFavoritesList] = useState<News[]>([]);
+  const [savedList, setSavedList] = useState<News[]>([]);
 
   useEffect(() => {
     const fetchTopStories = async () => {
@@ -53,8 +54,18 @@ const HomePage = () => {
 
   const handleFavortire = async (news: News) => {
     try {
-      const response = await api.addFavorite("/favorite", news);
+      const response = await api.addWithAuth("/favorite", news);
       setFavoritesList([...favoritesList, news]);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSaved = async (news: News) => {
+    try {
+      const response = await api.addWithAuth("/saved", news);
+      setSavedList([...savedList, news]);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -68,11 +79,19 @@ const HomePage = () => {
           <TopStories
             newsList={topStories}
             handleFavorite={handleFavortire}
+            handleSaved={handleSaved}
             favoritesList={favoritesList}
+            savedList={savedList}
           />
         </div>
         <div className="col-md-4 mb-5">
-          <LocalNews newsList={localNews} />
+          <LocalNews
+            newsList={localNews}
+            handleFavorite={handleFavortire}
+            handleSaved={handleSaved}
+            favoritesList={favoritesList}
+            savedList={savedList}
+          />
         </div>
       </div>
     </div>

@@ -29,7 +29,7 @@ const LoginForm = ({ onSubmit, message }: Props) => {
     resolver: zodResolver(schema),
   });
   return (
-    <div className="container" style={{ marginTop: "6rem" }}>
+    <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-6 col-md-10 col-sm-12">
           <div className="card p-4">

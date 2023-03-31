@@ -25,7 +25,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginTop: "6rem" }}>
       <LoginForm onSubmit={login} message={message} />
     </div>
   );

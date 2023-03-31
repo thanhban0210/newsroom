@@ -8,7 +8,12 @@ router.get("/top", async (req, res) => {
 });
 
 router.get("/local", async (req, res) => {
-  const data = await api.getNews("houston");
+  const data = await api.getLocalNews("houston");
+  res.send(data.data);
+});
+
+router.get("/search", async (req, res) => {
+  const data = await api.getSearchNews(req.query.q);
   res.send(data.data);
 });
 

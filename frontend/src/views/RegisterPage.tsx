@@ -37,7 +37,7 @@ const RegisterPage = () => {
     }
   };
   return (
-    <div className="container">
+    <div className="container" style={{ marginTop: "6rem" }}>
       <RegisterForm onSubmit={register} alert={alert} />
     </div>
   );

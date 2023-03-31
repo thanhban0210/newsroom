@@ -3,21 +3,37 @@ import { AiOutlineRight } from "react-icons/ai";
 import { AuthContext } from "../services/authContext";
 import { News } from "../views/HomePage";
 import { useNavigate } from "react-router-dom";
+import { GoKebabVertical } from "react-icons/go";
 import Logo from "./Logo";
 
 interface Props {
   newsList: News[];
   handleFavorite: (news: News) => void;
   favoritesList: News[];
+  savedList: News[];
+  handleSaved: (news: News) => void;
 }
 
-const TopStories = ({ newsList, handleFavorite, favoritesList }: Props) => {
+const TopStories = ({
+  newsList,
+  handleFavorite,
+  handleSaved,
+  favoritesList,
+  savedList,
+}: Props) => {
   const { signedIn, setSignedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleAddToFavorites = (news: News) => {
     if (signedIn) {
-      // alert("Added to favorites!");
       handleFavorite(news);
+    } else {
+      alert("Please sign in  first!");
+      navigate("/login");
+    }
+  };
+  const handleAddToSaved = (news: News) => {
+    if (signedIn) {
+      handleSaved(news);
     } else {
       alert("Please sign in  first!");
       navigate("/login");
@@ -60,7 +76,7 @@ const TopStories = ({ newsList, handleFavorite, favoritesList }: Props) => {
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                       >
-                        <i className="fas fa-ellipsis-v"></i>
+                        <GoKebabVertical style={{ height: "20px" }} />
                       </a>
 
                       <ul
@@ -83,9 +99,19 @@ const TopStories = ({ newsList, handleFavorite, favoritesList }: Props) => {
                           </button>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
-                            Save for later
-                          </a>
+                          <button
+                            className="dropdown-item"
+                            onClick={() => handleAddToSaved(news)}
+                            disabled={savedList.some(
+                              (saved) => saved.title === news.title
+                            )}
+                          >
+                            {savedList.some(
+                              (saved) => saved.title === news.title
+                            )
+                              ? "Saved"
+                              : "Save for later"}
+                          </button>
                         </li>
                       </ul>
                     </div>

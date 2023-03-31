@@ -107,3 +107,36 @@ body {
 .img-fluid {
   border-radius: 10px;
 }
+
+.saved {
+  color: #009688;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu li {
+  margin-bottom: 0px;
+}
+
+.btn-search {
+  background-color: #8bb8f8;
+}
+
+.btn-search:hover {
+  background-color: #4f97fb;
+}
+
+.input-search {
+  background-color: #2a3038;
+  color: rgba(255, 255, 255, 0.87);
+  border: none;
+}
+
+.input-search:focus {
+  background-color: #2a3038;
+  color: rgba(255, 255, 255, 0.87);
+  border: 1px solid #8bb8f8;
+  box-shadow: none;
+}

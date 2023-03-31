@@ -12,13 +12,22 @@ const api = {
       },
     }),
 
-  getNews: (query) =>
+  getLocalNews: (query) =>
     axios.get("https://newsapi.org/v2/everything", {
       params: {
         q: query,
         apiKey: api_key,
         pageSize: 3,
         page: 1,
+      },
+    }),
+
+  getSearchNews: (query) =>
+    axios.get("https://newsapi.org/v2/everything", {
+      params: {
+        q: query,
+        apiKey: api_key,
+        excludeDomains: "consent.google.com",
       },
     }),
 };
