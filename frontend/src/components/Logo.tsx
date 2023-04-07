@@ -17,7 +17,8 @@ const Logo = ({ website, size }: Props) => {
     "usa today": usa_today,
     independent: independent,
   };
-  if (!logoMap[website.toLowerCase()]) return <p>{website}</p>;
+  if (!logoMap[website.toLowerCase()])
+    return <p className="text-muted">{website}</p>;
   return (
     <img src={logoMap[website.toLowerCase()]} style={{ height: `${size}px` }} />
   );

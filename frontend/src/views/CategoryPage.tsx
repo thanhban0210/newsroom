@@ -4,11 +4,11 @@ import Logo from "../components/Logo";
 import api from "../services/api";
 import { News } from "./HomePage";
 import { GoKebabVertical } from "react-icons/go";
-const SearchPage = () => {
-  const { query } = useParams<{ query: string }>();
+const CategoryPage = () => {
+  const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
-  const [data, setData] = useState<News[]>([]);
   const [dataFull, setDataFull] = useState<News[]>([]);
+  const [data, setData] = useState<News[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [searchParams] = useSearchParams();
   const [favoritesList, setFavoritesList] = useState<News[]>([]);
@@ -16,11 +16,16 @@ const SearchPage = () => {
   const page = parseInt(searchParams.get("page") || "1");
   useEffect(() => {
     const pageSize = 20;
-    const fetchData = async (searchTerm: string) => {
+    const fetchData = async (category: string) => {
       try {
-        const data = await api.get(`/news/search?q=${searchTerm}`);
-        setTotalPages(Math.ceil(data.data.articles.length / pageSize));
-
+        let data;
+        if (category === "top") {
+          data = await api.get(`/news/top-full`);
+        } else if (category === "local") {
+          data = await api.get(`/news/local-full`);
+        } else {
+          data = await api.get(`/news/category-full/${category}`);
+        }
         setTotalPages(Math.ceil(data.data.articles.length / pageSize));
         setDataFull(data.data.articles);
         setData(data.data.articles.slice(0, 20));
@@ -28,6 +33,7 @@ const SearchPage = () => {
         console.log(err);
       }
     };
+
     const fetchFavorites = async () => {
       try {
         const response = await api.getWithAuth("/favorite");
@@ -45,12 +51,12 @@ const SearchPage = () => {
         console.error(error);
       }
     };
-    if (query) {
-      fetchData(query);
+    if (category) {
+      fetchData(category);
       fetchFavorites();
       fetchSaved();
     }
-  }, [query]);
+  }, [category]);
 
   useEffect(() => {
     if (dataFull.length > 0) {
@@ -58,6 +64,9 @@ const SearchPage = () => {
     }
     window.scrollTo(0, 0);
   }, [page]);
+  function capitalizeFirstLetter(str: string | undefined): string {
+    return str ? str.slice(0, 1).toUpperCase() + str.slice(1) : "";
+  }
 
   const handleFavortire = async (news: News) => {
     try {
@@ -78,11 +87,11 @@ const SearchPage = () => {
       console.error(error);
     }
   };
+
   return (
     <div className="container" style={{ marginTop: "6rem" }}>
       <div className="h5 mb-3">
-        <span className="text-muted">Results for</span>{" "}
-        <span className="h1">{query}</span>
+        <span className="categories h1">{capitalizeFirstLetter(category)}</span>
       </div>
 
       <div className="d-flex justify-content-center">
@@ -185,7 +194,9 @@ const SearchPage = () => {
               <li key={index} className="page-item mx-3">
                 <button
                   className="btn btn-primary"
-                  onClick={() => navigate(`/search/${query}?page=${index + 1}`)}
+                  onClick={() =>
+                    navigate(`/category/${category}?page=${index + 1}`)
+                  }
                   disabled={index + 1 === page}
                 >
                   {index + 1}
@@ -199,4 +210,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default CategoryPage;

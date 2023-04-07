@@ -1,6 +1,6 @@
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #2a3038;
+  background-color: #292a2d;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -75,8 +75,9 @@ body {
 }
 .card-news {
   border: none;
-  background-color: #f2f2f2;
+  background-color: #1f1f1f;
   border-radius: 20px;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .card-news-underlined:hover {
@@ -139,4 +140,16 @@ body {
   color: rgba(255, 255, 255, 0.87);
   border: 1px solid #8bb8f8;
   box-shadow: none;
+}
+
+.categories {
+  color: #009688;
+}
+
+.navbar {
+  background-color: #1f1f1f;
+  color: rgba(255, 255, 255, 0.87);
+}
+.navbar-brand {
+  color: rgba(255, 255, 255, 0.87);
 }

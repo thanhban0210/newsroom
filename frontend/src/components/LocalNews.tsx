@@ -2,7 +2,7 @@ import { News } from "../views/HomePage";
 import Logo from "./Logo";
 import { AiOutlineRight } from "react-icons/ai";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../services/authContext";
 import { GoKebabVertical } from "react-icons/go";
 
@@ -41,16 +41,20 @@ const LocalNews = ({
   };
   return (
     <div>
-      <div className="card  text-bg-dark card-news p-3">
-        <div className="h4 local-news category">
+      <div className="card card-news p-3">
+        <Link
+          to={`/category/local`}
+          className="h4 categories category"
+          style={{ textDecoration: "none", color: "#009688" }}
+        >
           Local News <AiOutlineRight />
-        </div>
+        </Link>
         <hr />
         <ul className="list-group list-group-flush">
           {newsList.map((news, index) => (
             <div
               key={news.title}
-              className="card text-bg-dark card-news card-news-underlined"
+              className="card card-news card-news-underlined"
             >
               <div className="card-body">
                 <p

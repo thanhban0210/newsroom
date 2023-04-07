@@ -12,9 +12,11 @@ interface Props {
   favoritesList: News[];
   savedList: News[];
   handleSaved: (news: News) => void;
+  category: string;
 }
 
-const TopStories = ({
+const Category = ({
+  category,
   newsList,
   handleFavorite,
   handleSaved,
@@ -39,37 +41,47 @@ const TopStories = ({
       navigate("/login");
     }
   };
+  function capitalizeFirstLetter(str: string): string {
+    return str.slice(0, 1).toUpperCase() + str.slice(1);
+  }
   return (
     <div>
-      <div className="card card-news p-3 ">
+      <div className="card card-news p-3">
         <Link
-          to={`/category/top`}
+          to={`/category/${category}`}
           className="h4 categories category"
-          style={{ textDecoration: "none", color: "#8bb8f8" }}
+          style={{ textDecoration: "none", color: "#009688" }}
         >
-          Top Stories <AiOutlineRight />
+          {capitalizeFirstLetter(category)} <AiOutlineRight />
         </Link>
         <hr />
         <ul className="list-group list-group-flush">
           {newsList.map((news, index) => (
             <div
               key={news.title}
-              className="card  card-news card-news-underlined "
+              className="card card-news card-news-underlined"
             >
               <div className="row g-0">
-                <div className="col-md-4">
-                  <img src={news.urlToImage} className="img-fluid" alt="..." />
+                <div className="col-xl-4">
+                  {news.urlToImage ? (
+                    <img
+                      src={news.urlToImage}
+                      className="img-fluid"
+                      alt="..."
+                    />
+                  ) : null}
                 </div>
-                <div className="col-md-8">
+
+                <div className="col-xl-8">
                   <div className="card-body position-relative p-3">
-                    <h5
+                    <div
                       className="card-title"
                       onClick={() => {
                         window.open(news.url, "_blank");
                       }}
                     >
-                      {news.title.split("-")[0]}
-                    </h5>
+                      {news.title}
+                    </div>
                     <Logo website={news.source.name} size={30} />
                     <div className="dropdown position-absolute top-0 end-0">
                       <a
@@ -122,6 +134,7 @@ const TopStories = ({
                   </div>
                 </div>
               </div>
+
               {index !== newsList.length - 1 && <hr />}
             </div>
           ))}
@@ -131,4 +144,4 @@ const TopStories = ({
   );
 };
 
-export default TopStories;
+export default Category;

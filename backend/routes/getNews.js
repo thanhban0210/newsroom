@@ -17,4 +17,24 @@ router.get("/search", async (req, res) => {
   res.send(data.data);
 });
 
+router.get("/category/:cat", async (req, res) => {
+  const { cat } = req.params;
+  const data = await api.getCategory(cat);
+  res.send(data.data);
+});
+
+router.get("/category-full/:cat", async (req, res) => {
+  const { cat } = req.params;
+  const data = await api.getCategoryFull(cat);
+  res.send(data.data);
+});
+router.get("/top-full", async (req, res) => {
+  const data = await api.getTopStoriesFull("us");
+  res.send(data.data);
+});
+router.get("/local-full", async (req, res) => {
+  const data = await api.getLocalNewsFull("houston");
+  res.send(data.data);
+});
+
 module.exports = router;

@@ -18,11 +18,11 @@ const Nav = ({ user }: Props) => {
     navigate(`/search/${searchTerm}`);
   };
   return (
-    <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar fixed-top navbar-expand-lg navbar-dark">
       <div className="container-fluid">
         <div>
           <Link className="navbar-brand" to="/">
-            <span className="h1"> News</span>
+            <span className="h1"> Newsroom</span>
           </Link>
         </div>
         <div className="">

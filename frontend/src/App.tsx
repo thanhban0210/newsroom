@@ -10,7 +10,7 @@ import FavoritePage from "./views/FavoritePage";
 import SavedPage from "./views/SavedPage";
 import api from "./services/api";
 import SearchPage from "./views/SearchPage";
-import ScrollToTop from "./services/scroll";
+import CategoryPage from "./views/CategoryPage";
 
 function App() {
   const [signedIn, setSignedIn] = useState(false);
@@ -39,7 +39,6 @@ function App() {
   return (
     <AuthContext.Provider value={{ signedIn, setSignedIn }}>
       <Nav user={user} />
-      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -48,6 +47,7 @@ function App() {
         <Route path="/favorite" element={<FavoritePage />} />
         <Route path="/saved" element={<SavedPage />} />
         <Route path="/search/:query" element={<SearchPage />} />
+        <Route path="/category/:category" element={<CategoryPage />} />
       </Routes>
     </AuthContext.Provider>
   );
